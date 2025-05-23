@@ -3,6 +3,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://www.bling.com.br/Api/v3/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
@@ -23,5 +27,9 @@
         }
       ]
     }
-  ]
+  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "regions": ["gru1"]
 } 
