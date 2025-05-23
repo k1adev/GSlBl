@@ -12,7 +12,15 @@ export const getAuthUrl = () => {
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('auth_code_used');
     
-    return `https://www.bling.com.br/Api/v3/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&state=xyz123&redirect_uri=${encodeURIComponent(REDIRECT_URI)}`;
+    // Log para debug
+    console.log('URL de redirecionamento configurada:', REDIRECT_URI);
+    
+    const authUrl = `https://www.bling.com.br/Api/v3/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&state=xyz123&redirect_uri=${encodeURIComponent(REDIRECT_URI)}`;
+    
+    // Log para debug
+    console.log('URL de autorização completa:', authUrl);
+    
+    return authUrl;
 };
 
 export const getAccessToken = async (code: string) => {
@@ -23,6 +31,11 @@ export const getAccessToken = async (code: string) => {
             throw new Error('Este código de autorização já foi usado.');
         }
 
+        // Log para debug
+        console.log('Iniciando troca de código por token');
+        console.log('Código recebido:', code);
+        console.log('URL de redirecionamento:', REDIRECT_URI);
+
         // Marca o código como usado
         localStorage.setItem('auth_code_used', code);
 
@@ -32,6 +45,13 @@ export const getAccessToken = async (code: string) => {
         params.append('redirect_uri', REDIRECT_URI);
 
         const basicAuth = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
+
+        // Log para debug
+        console.log('Parâmetros da requisição:', {
+            grant_type: 'authorization_code',
+            code: code,
+            redirect_uri: REDIRECT_URI
+        });
 
         const response = await fetch('/api/oauth/token', {
             method: 'POST',
