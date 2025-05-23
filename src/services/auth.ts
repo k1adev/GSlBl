@@ -1,8 +1,9 @@
-import api from './api';
+// Removendo importação não utilizada do api
+// import api from './api';
 
 const CLIENT_ID = '0940992417b8a15c7b77a0b050938c0bab452c08';
 const CLIENT_SECRET = '9aadd915a2081442944d849580f3567aaabd8cdef92bfc6cf245361de3bd';
-const BASE_URL = import.meta.env.PROD ? 'https://bling-nfe.vercel.app' : 'http://localhost:5173';
+const BASE_URL = import.meta.env.PROD ? 'https://gslbl.vercel.app' : 'http://localhost:5173';
 const REDIRECT_URI = `${BASE_URL}/callback`;
 
 export const getAuthUrl = () => {
